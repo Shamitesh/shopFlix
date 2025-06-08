@@ -13,12 +13,12 @@ mongoose
  .catch(() => console.log("DB not connected"))
 
 
-const userRoute = require("./routes/userRoute");
+// const userRoute = require("./routes/userRoute");
 
 // Use user routes
-app.use("/", userRoute);
+// app.use("/", userRoute);
 app.get("/", (req, res) => {
-    res.send("Hello from Server");
+    res.send("Hello from Server shopFlix");
 });
 const PORT = 4000;
 app.listen(PORT, (err) => err ? console.log(err) : console.log(`Server is running at PORT ${PORT}`));
