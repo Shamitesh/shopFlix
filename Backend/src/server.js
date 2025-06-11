@@ -1,24 +1,22 @@
 const express = require("express")
 const mongoose = require("mongoose")
-
+require('dotenv').config();
 const app = express()
+const userRoute = require("./routes/userRoute");
 
 app.use(express.json())
 
-mongoose
- .connect(
-    "mongodb+srv://amiketesh36:asdf321@cluster0.ck3fz.mongodb.net/shopFlix"
-)
+mongoose.connect(process.env.MONGO_URI)
  .then(() => console.log("DB connected"))
  .catch(() => console.log("DB not connected"))
 
 
-// const userRoute = require("./routes/userRoute");
+
 
 // Use user routes
-// app.use("/", userRoute);
+app.use("/", userRoute);
 app.get("/", (req, res) => {
     res.send("Hello from Server shopFlix");
 });
-const PORT = 4000;
-app.listen(PORT, (err) => err ? console.log(err) : console.log(`Server is running at PORT ${PORT}`));
+
+app.listen(process.env.PORT, (err) => err ? console.log(err) : console.log(`Server is running at PORT ${process.env.PORT}`));

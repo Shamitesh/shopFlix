@@ -13,6 +13,11 @@ const userSchema = new mongoose.Schema({
          unique: true,
          trim: true 
         },
+    password: {
+        type: String,
+        required: true,
+        trim: true
+    },
     phone: {
             type: Number, 
             required: true,
@@ -29,7 +34,8 @@ const userSchema = new mongoose.Schema({
         required: true 
     },
     gender: {
-         type: ["male","female","other"],
+        type: String,
+         enum: ["male","female","other"],
           required: true, 
           trim: true 
         }},
