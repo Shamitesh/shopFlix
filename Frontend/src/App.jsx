@@ -1,35 +1,62 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from "react";
+import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./Pages/Home";
+import AddProduct from "./Pages/AddProduct";
+import Cart from "./Pages/Cart";
+import Order from "./Pages/Order";
+import Profile from "./Pages/Profile";
+import Navbar from "./Components/Navbar";
+import LoginModal from "./Components/LoginModal";
+import SignupModal from "./Components/SignupModal";
+import { ToastContainer } from "react-toastify";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showSignupModal, setShowSignupModal] = useState(false);
+
+  const openLoginModal = () => setShowLoginModal(true);
+  const closeLoginModal = () => setShowLoginModal(false);
+
+  const openSignupModal = () => setShowSignupModal(true);
+  const closeSignupModal = () => setShowSignupModal(false);
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+      <BrowserRouter>
+        <Navbar openLogin={openLoginModal} />
 
-export default App
+        {showLoginModal && (
+          <LoginModal
+            closeModal={closeLoginModal}
+            openSignupModal={() => {
+              closeLoginModal();
+              openSignupModal();
+            }}
+          />
+        )}
+
+        {showSignupModal && (
+          <SignupModal
+            closeModal={closeSignupModal}
+            openLoginModal={() => {
+              closeSignupModal();
+              openLoginModal();
+            }}
+          />
+        )}
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/add-product" element={<AddProduct />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/orders" element={<Order />} />
+          <Route path="/profile" element={<Profile />} />
+        </Routes>
+      </BrowserRouter>
+      <ToastContainer position="top-center" autoClose={2000} />
+    </>
+  );
+};
+
+export default App;
