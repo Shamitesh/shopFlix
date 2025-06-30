@@ -18,8 +18,8 @@ const productSchema = new mongoose.Schema({
     },
     productCategory: {
         type: String,
-        enum: ["laptop","grocery","mobile","clothes","furniture","toys","books","electronics","home appliances",
-        "beauty","sports","automotive","jewelry","footwear","stationery","health",],
+        enum: ["laptop", "grocery", "mobile", "clothes", "furniture", "toys", "books", "electronics", "home appliances",
+            "beauty", "sports", "automotive", "jewelry", "footwear", "stationery", "health",],
         required: true,
         trim: true
     },
@@ -29,9 +29,7 @@ const productSchema = new mongoose.Schema({
     },
     productRatings: {
         type: Number,
-        min: 0,
-        max: 5,
-        default: 0
+        required: true
     },
     isFreeDelivery: {
         type: Boolean,
@@ -44,4 +42,4 @@ const productSchema = new mongoose.Schema({
 
 const productModel = mongoose.model("productDetails", productSchema);
 
-module.exports =  productModel ;
+module.exports = productModel;
